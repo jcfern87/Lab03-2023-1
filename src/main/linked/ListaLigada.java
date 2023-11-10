@@ -24,11 +24,16 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public int buscaIndice(int valor) {
+        int index = 0;
         No obj = cabeca;
-        for(int i = 0; i == valor - 1; i++){
+        while(obj != null){
+            if(obj.getValor() == valor){
+                return index;
+            }
+            index++;
             obj = obj.getProximo();
         }
-        return obj.getValor();    
+        return index;
     }
 
     @Override
@@ -85,13 +90,22 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public void insereElementoPosicao(int valor, int buscaIndice) {
-        No obj = cabeca;
-        for(int i = 0; i == buscaIndice - 1; i++){
-            obj = obj.getProximo();
+        if(buscaIndice == 0){
+            No obj = new No(valor);
+            obj.setProximo(cabeca);
+            this.cabeca = obj;
         }
-        No fov = new No(valor);
-        fov.setProximo(obj.getProximo());
-        obj.setProximo(fov);
+        else{
+            No obj = cabeca;
+            int index = 0;
+            while(obj != null){
+                if(index != buscaIndice){
+                    obj = obj.getProximo();
+                    index++;
+                }
+            }
+
+        }
     }
 
     @Override
@@ -123,8 +137,8 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public void remove(int valor) {
-        if(cabeca.getValor() == valor){
-            cabeca = null;
+        if(this.cabeca.getValor() == valor){
+            this.cabeca = null;
         }
         No obj = cabeca;
         while(obj.getProximo() != null){
@@ -139,8 +153,27 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public void removeIndice(int indice) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeIndice'");
+        if(indice == 0){
+            if(this.cabeca.getProximo() != null){
+                this.cabeca = this.cabeca.getProximo();
+            }
+            else{
+                this.cabeca = null;
+            }
+        }
+        else{
+            int index = 1;
+            No obj = cabeca;
+            while(obj != null){
+                if(index == indice){
+                    obj.setProximo(obj.getProximo().getProximo());
+                }
+                else{
+                    obj = obj.getProximo();
+                    index++;
+                }
+            }
+        }
     }
 
     @Override
