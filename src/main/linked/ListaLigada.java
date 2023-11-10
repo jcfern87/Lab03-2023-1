@@ -79,9 +79,9 @@ public class ListaLigada implements EstruturaElementar{
         if(cabeca != null){
             No obj = this.cabeca;
             while(obj.getProximo() != null){
-                    obj = obj.getProximo();
-                }
-                obj.setProximo(new No(valor));
+                obj = obj.getProximo();
+            }
+            obj.setProximo(new No(valor));
         }
         else{
             cabeca = new No(valor);
@@ -140,13 +140,15 @@ public class ListaLigada implements EstruturaElementar{
         if(this.cabeca.getValor() == valor){
             this.cabeca = null;
         }
-        No obj = cabeca;
-        while(obj.getProximo() != null){
-            if(obj.getProximo().getValor() == valor && obj.getProximo().getProximo() != null){
-                obj.setProximo(obj.getProximo().getProximo());
-            }
-            else if(obj.getProximo().getValor() == valor && obj.getProximo().getProximo() == null){
-                obj.setProximo(null);
+        else{
+            No obj = cabeca;
+            while(obj.getProximo() != null){
+                if(obj.getProximo().getValor() == valor){
+                    obj.setProximo(obj.getProximo().getProximo());
+                }
+                else{
+                    obj = obj.getProximo();
+                }
             }
         }
     }
@@ -178,14 +180,21 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public void removeInicio() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeInicio'");
+        if(this.cabeca != null){
+            No obj = this.cabeca.getProximo();
+            this.cabeca = obj;
+        }
     }
 
     @Override
     public void removeFim() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeFim'");
+        if(this.cabeca != null){
+            No obj = this.cabeca;
+            while(obj.getProximo().getProximo() != null){
+                obj = obj.getProximo();
+            }
+            obj.setProximo(null);
+        }
     }
     
 }
