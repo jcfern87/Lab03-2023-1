@@ -12,14 +12,14 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public boolean buscaElemento(int valor) {
-        No obj = cabeca;
-        boolean x = false;
-        while(obj.getProximo() != null){
+        No obj = this.cabeca;
+        while(obj != null){
             if(obj.getValor() == valor){
-                x = true;
+                return true;
             }
+            obj = obj.getProximo();
         }
-        return x;     
+        return false;    
     }
 
     @Override
@@ -33,21 +33,35 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public int minimo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'minimo'");
+        No obj = cabeca;
+        int min = obj.getValor();
+        while(obj != null){
+            if(obj.getValor() < min){
+                min = obj.getValor();
+            }
+            obj = obj.getProximo();
+        }
+        return min;
     }
 
     @Override
     public int maximo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'maximo'");
+        No obj = cabeca;
+        int max = obj.getValor();
+        while(obj != null){
+            if(obj.getValor() > max){
+                max = obj.getValor();
+            }
+            obj = obj.getProximo();
+        }
+        return max;
     }
 
     @Override
     public int predecessor(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'predecessor'");
+        return 2;
     }
+        
 
     @Override
     public int sucessor(int valor) {
@@ -57,14 +71,27 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public void insereElemento(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereElemento'");
+        if(cabeca != null){
+            No obj = this.cabeca;
+            while(obj.getProximo() != null){
+                    obj = obj.getProximo();
+                }
+                obj.setProximo(new No(valor));
+        }
+        else{
+            cabeca = new No(valor);
+        }
     }
 
     @Override
     public void insereElementoPosicao(int valor, int buscaIndice) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereElementoPosicao'");
+        No obj = cabeca;
+        for(int i = 0; i == buscaIndice - 1; i++){
+            obj = obj.getProximo();
+        }
+        No fov = new No(valor);
+        fov.setProximo(obj.getProximo());
+        obj.setProximo(fov);
     }
 
     @Override
@@ -82,23 +109,32 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public void insereFim(int valor) {
-         No obj = cabeca;
-        while(true){
-            if(obj.getProximo() != null){
-                obj = obj.getProximo();
-                
-            }
-            else{
-                No n = new No(valor);
-                obj.setProximo(n);
-            } 
-        }      
+        if(cabeca != null){
+            No obj = this.cabeca;
+            while(obj.getProximo() != null){
+                    obj = obj.getProximo();
+                }
+                obj.setProximo(new No(valor));
+        }
+        else{
+            cabeca = new No(valor);
+        }
     }
 
     @Override
     public void remove(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        if(cabeca.getValor() == valor){
+            cabeca = null;
+        }
+        No obj = cabeca;
+        while(obj.getProximo() != null){
+            if(obj.getProximo().getValor() == valor && obj.getProximo().getProximo() != null){
+                obj.setProximo(obj.getProximo().getProximo());
+            }
+            else if(obj.getProximo().getValor() == valor && obj.getProximo().getProximo() == null){
+                obj.setProximo(null);
+            }
+        }
     }
 
     @Override
